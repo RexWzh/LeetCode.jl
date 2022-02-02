@@ -1,8 +1,8 @@
 # ---
 # title: 876. Middle of the Linked List
 # id: problem876
-# author: Tian Jun
-# date: 2020-10-31
+# author: zhwang
+# date: 2022-01-23
 # difficulty: Easy
 # categories: Linked List
 # link: <https://leetcode.com/problems/middle-of-the-linked-list/description/>
@@ -46,5 +46,29 @@
 ## @lc code=start
 using LeetCode
 
-## add your code here:
+function middle_node(head::ListNode)::ListNode
+    num, node = 0, head
+    while !isnothing(node)
+        num += 1
+        node = next(node)
+    end
+    for _ in 1:(num ÷ 2)
+        head = next(head)
+    end
+    return head
+end
+
+## double pointers
+function middle_node_by_double_pointers(head::ListNode)::ListNode
+    p1, p2 = head, head
+    while !isnothing(p2)
+        p2 = next(p2)
+        if isnothing(p2)
+            return p1
+        end
+        p2, p1 = p2.next, p1.next
+    end
+    return p1
+end
+
 ## @lc code=end
