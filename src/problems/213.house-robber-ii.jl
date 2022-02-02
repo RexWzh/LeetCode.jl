@@ -1,8 +1,8 @@
 # ---
 # title: 213. House Robber II
 # id: problem213
-# author: Tian Jun
-# date: 2020-10-31
+# author: zhwang
+# date: 2022-01-19
 # difficulty: Medium
 # categories: Dynamic Programming
 # link: <https://leetcode.com/problems/house-robber-ii/description/>
@@ -60,5 +60,20 @@
 ## @lc code=start
 using LeetCode
 
-## add your code here:
+function rob_213(nums::Vector{Int})::Int
+    n = length(nums)
+    n <= 3 && return max(nums...)
+    ## start from house 1
+    a, b1 = nums[1], nums[1] + nums[3]
+    for i in 4:(n - 1)
+        a, b1 = b1, max(b1, a + nums[i])
+    end
+    ## start from house 2
+    a, b2 = nums[2], max(nums[2], nums[3])
+    for i in 4:n
+        a, b2 = b2, max(b2, a + nums[i])
+    end
+    return max(b1, b2)
+end
+
 ## @lc code=end
